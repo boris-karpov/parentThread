@@ -3,6 +3,8 @@ package research.parentThread;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.management.ManagementFactory;
+import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 import org.junit.Test;
 
 /**
@@ -10,19 +12,27 @@ import org.junit.Test;
  */
 public class AppTest
 {
-    /**
-     * Try to create a new thread
-     */
     private String testName = this.getClass().getName();
     public void setTestName(String testName){this.testName = testName;}
+    CountDownLatch latch = new CountDownLatch(3);
+    Date date = new Date();
 
     public String getTestName(){
         String testName = this.testName;
         return testName;
     }
+
     @Test
-    public void shouldAnswerWithTrue()
-    {
+    public void shouldAnswerWithTrue() throws InterruptedException {
+//        TestProperties.storage.setProperty("parentThread", "parentThread");
+    Runnable invokable = () -> {
+    /*thread body, any code can run here*/
+    System.out.println(date.getTime() + " Runnable. ThreadId [" + Thread.currentThread().getId() + "]. ThreadName: " + Thread.currentThread().getName() + ". Process [" + ManagementFactory
+    .getRuntimeMXBean().getName() + "] " + "Thread Group: "
+    + Thread.currentThread().getThreadGroup().getName() + " Parent Group: " + Thread.currentThread().getThreadGroup().getParent().getName());
+    latch.countDown();
+    };
+
         assertTrue( true );
         try {
             Thread.sleep(1000);
@@ -32,5 +42,13 @@ public class AppTest
         }
         catch (InterruptedException e) {
         }
+        System.out.println(TestProperties.storage.toString());
+        Thread t1 = new Thread(invokable,"one");
+        Thread t2 = new Thread(invokable,"two");
+        Thread t3 = new Thread(invokable,"three");
+        t1.start();
+        t2.start();
+        t3.start();
+        latch.await();
     }
 }

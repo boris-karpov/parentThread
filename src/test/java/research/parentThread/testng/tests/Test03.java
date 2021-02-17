@@ -1,4 +1,4 @@
-package testng.tests;
+package research.parentThread.testng.tests;
 
 import org.junit.Test;
 import research.parentThread.AppTest;
@@ -6,8 +6,9 @@ import research.parentThread.AppTest;
 public class Test03 {
 
     String testName = this.getClass().getName();
+
     @Test
-    public void main(){
+    public void main() throws InterruptedException {
         AppTest test = new AppTest();
         test.setTestName(testName);
         test.shouldAnswerWithTrue();
