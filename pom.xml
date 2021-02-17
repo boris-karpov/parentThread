@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -25,12 +25,14 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+<!--
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>7.3.0</version>
       <scope>test</scope>
     </dependency>
+-->
   </dependencies>
 
   <build>
@@ -54,9 +56,13 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
           <configuration>
+            <parallel>methods</parallel>
+            <threadCount>10</threadCount>
+<!--
             <suiteXmlFiles>
               <suiteXmlFile>testng.xml</suiteXmlFile>
             </suiteXmlFiles>
+-->
           </configuration>
         </plugin>
         <plugin>
@@ -79,6 +85,30 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>aspectj-maven-plugin</artifactId>
+            <version>1.7</version>
+            <configuration>
+                <complianceLevel>1.8</complianceLevel>
+                <source>1.8</source>
+                <target>1.8</target>
+                <showWeaveInfo>true</showWeaveInfo>
+                <verbose>true</verbose>
+                <Xlint>ignore</Xlint>
+                <encoding>UTF-8 </encoding>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <!-- use this goal to weave all your main classes -->
+                        <goal>compile</goal>
+                        <!-- use this goal to weave all your test classes -->
+                        <goal>test-compile</goal>
+                    </goals>
+                </execution>
+            </executions>
         </plugin>
       </plugins>
     </pluginManagement>
