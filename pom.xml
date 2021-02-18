@@ -16,6 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <aspectj.version>1.9.5</aspectj.version>
   </properties>
 
   <dependencies>
@@ -28,13 +29,15 @@
     <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspectjrt</artifactId>
-        <version>1.8.9</version>
+        <version>1.8.13</version>
     </dependency>
+<!--
     <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspectjweaver</artifactId>
         <version>1.8.9</version>
     </dependency>
+-->
 <!--
     <dependency>
       <groupId>org.testng</groupId>
@@ -99,7 +102,7 @@
         <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>aspectj-maven-plugin</artifactId>
-            <version>1.7</version>
+            <version>1.11</version>
             <configuration>
                 <complianceLevel>1.8</complianceLevel>
                 <source>1.8</source>
@@ -116,12 +119,11 @@
                         <goal>compile</goal>
                         <!-- use this goal to weave all your test classes -->
                         <goal>test-compile</goal>
-                        <goal>test</goal>
                     </goals>
                 </execution>
             </executions>
         </plugin>
       </plugins>
-    </pluginManagement><plugins><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><configuration><source>8</source><target>8</target></configuration></plugin></plugins>
+    </pluginManagement>
   </build>
 </project>
