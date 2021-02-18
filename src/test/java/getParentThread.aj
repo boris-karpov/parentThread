@@ -1,4 +1,5 @@
-public aspect getParentThread {
+
+import research.parentThread.TestProperties;public aspect getParentThread {
     pointcut threadStarting():
     call(* java.lang.Thread+.start()) ||
                 call(* ExecutorService+.execute(..)) ||
@@ -10,6 +11,7 @@ public aspect getParentThread {
     long parentThread = Thread.currentThread().getId();
     Object ret = proceed();
 //    long newThread = Thread.currentThread().getId();
+    TestProperties.storage.setProperty("1","2");
     System.out.println("Aspectj!!");
     return ret;
     }
