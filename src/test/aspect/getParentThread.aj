@@ -2,27 +2,13 @@
 import research.parentThread.TestProperties;
 
 public aspect getParentThread {
-    pointcut threadStarting(): call(public void start());
-/*
-    call(* java.lang.Thread+.start()) ||
-                call(* ExecutorService+.execute(..)) ||
-                call(* ExecutorService+.submit(..)) ||
-                call(* ExecutorService+.invokeAll(..)) ||
-                call(* ExecutorService+.invokeAny(..)) ||
-                call(* ScheduledExecutorService.scheduleAtFixedRate(..));
-*/
-    Object around(): threadStarting() {
-    long parentThreadId = Thread.currentThread().getId();
-    Object ret = proceed();
-    System.out.println("Aspectj Thread Start Hook. Around. ParentThreadId: [" + parentThreadId + "]"
-    //+ "The the object ret is: " + ret.toString() //java.lang.NullPointerException
-    );
-    return ret;
+    pointcut threadStarting(Thread t): call(public void start()) && target(t) ;
+    Object around(Thread t): threadStarting(t) {
+        long parentThreadId = Thread.currentThread().getId();
+        Object ret = proceed(t);
+        TestProperties.storage.setProperty(String.valueOf(t.getId()),String.valueOf(parentThreadId));
+        System.out.println("Aspectj Thread Start Hook, around. ParentThreadId: [" + parentThreadId + "]"
+        + " Target Id is: [" + t.getId() + "]");
+        return ret;
     }
-    after() : threadStarting() {
-        long newThreadId = Thread.currentThread().getId();
-        System.out.println("Aspectj Thread Start Hook. After. CurrentThreadId: ["+ newThreadId + "]");
-//        TestProperties.storage.setProperty(String.valueOf(newThreadId),String.valueOf(parentThreadId));
-    }
-
 }

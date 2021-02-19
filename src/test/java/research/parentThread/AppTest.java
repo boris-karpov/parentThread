@@ -22,21 +22,12 @@ public class AppTest {
     Date date = new Date();
 
     public String getTestName() {
-        String testName = this.testName;
-        return testName;
+        return this.testName;
     }
 
     @Test
     public void shouldAnswerWithTrue() throws InterruptedException {
-        //
-        // !!! Developers would insert the following line(1)
-        long parentThreadId = Thread.currentThread().getId();
-        //
         Runnable invokable = () -> {
-            //
-            // !!! Developers would insert the following line(2)
-            TestProperties.storage.setProperty(String.valueOf(Thread.currentThread().getId()), String.valueOf(parentThreadId));
-            //
             /*thread body, any code can run here*/
             System.out.println(
                 date.getTime() + " Runnable. ThreadId [" + Thread.currentThread().getId() + "]. ThreadName: " + Thread.currentThread().getName() + ". Process [" + ManagementFactory.getRuntimeMXBean()
@@ -53,7 +44,6 @@ public class AppTest {
         }
         catch (InterruptedException e) {
         }
-        System.out.println(TestProperties.storage.toString());
         Thread t1 = new Thread(invokable, "one");
         Thread t2 = new Thread(invokable, "two");
         Thread t3 = new Thread(invokable, "three");
@@ -61,5 +51,6 @@ public class AppTest {
         t2.start();
         t3.start();
         latch.await();
+        System.out.println(TestProperties.storage.toString());
     }
 }
