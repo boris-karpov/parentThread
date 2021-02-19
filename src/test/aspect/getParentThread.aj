@@ -14,12 +14,15 @@ public aspect getParentThread {
     Object around(): threadStarting() {
     long parentThreadId = Thread.currentThread().getId();
     Object ret = proceed();
-    long newThreadId = Thread.currentThread().getId();
-    TestProperties.storage.setProperty(String.valueOf(newThreadId),String.valueOf(parentThreadId));
-    System.out.println("Aspectj Thread Start Hook. ParentThreadId: [" + parentThreadId + "]"
-    //+ "The class of the object ret is: " + ret.getClass().getName() //java.lang.NullPointerException
+    System.out.println("Aspectj Thread Start Hook. Around. ParentThreadId: [" + parentThreadId + "]"
+    //+ "The the object ret is: " + ret.toString() //java.lang.NullPointerException
     );
     return ret;
+    }
+    after() : threadStarting() {
+        long newThreadId = Thread.currentThread().getId();
+        System.out.println("Aspectj Thread Start Hook. After. CurrentThreadId: ["+ newThreadId + "]");
+//        TestProperties.storage.setProperty(String.valueOf(newThreadId),String.valueOf(parentThreadId));
     }
 
 }
