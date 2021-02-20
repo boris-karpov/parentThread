@@ -1,14 +1,14 @@
 package research.parentThread.testng.tests;
 
 import org.junit.Test;
-import research.parentThread.AppTest;
+import research.parentThread.ThreadsByThreadStart;
 
 public class Test02 {
 
     String testName = this.getClass().getName();
     @Test
     public void main() throws InterruptedException {
-        AppTest test = new AppTest();
+        ThreadsByThreadStart test = new ThreadsByThreadStart();
         test.setTestName(testName);
         test.shouldAnswerWithTrue();
     }

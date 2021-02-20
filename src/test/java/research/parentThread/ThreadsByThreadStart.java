@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * Unit test for simple App.
  */
-public class AppTest {
+public class ThreadsByThreadStart {
 
     private String testName = this.getClass().getName();
 
