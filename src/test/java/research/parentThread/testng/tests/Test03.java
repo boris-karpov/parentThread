@@ -1,7 +1,7 @@
 package research.parentThread.testng.tests;
 
 import org.junit.Test;
-import research.parentThread.TestThreadsByExecutorService;
+import research.parentThread.ThreadsByExecutorService;
 
 public class Test03 {
 
@@ -9,7 +9,7 @@ public class Test03 {
 
     @Test
     public void main() throws InterruptedException {
-        TestThreadsByExecutorService test = new TestThreadsByExecutorService();
+        ThreadsByExecutorService test = new ThreadsByExecutorService();
         test.setTestName(testName);
         test.shouldAnswerWithTrue();
     }

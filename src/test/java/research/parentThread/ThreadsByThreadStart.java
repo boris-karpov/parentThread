@@ -29,28 +29,31 @@ public class ThreadsByThreadStart {
     public void shouldAnswerWithTrue() throws InterruptedException {
         Runnable invokable = () -> {
             /*thread body, any code can run here*/
-            System.out.println(
-                date.getTime() + " Runnable. ThreadId [" + Thread.currentThread().getId() + "]. ThreadName: " + Thread.currentThread().getName() + ". Process [" + ManagementFactory.getRuntimeMXBean()
-                    .getName() + "] " + "Thread Group: " + Thread.currentThread().getThreadGroup().getName() + " Parent Group: " + Thread.currentThread().getThreadGroup().getParent().getName());
+            System.out.println(date.getTime() + " Runnable, Thread.start(). ThreadId [" + Thread.currentThread().getId()
+                                   + "]. ThreadName: " + Thread.currentThread().getName()
+                                   + ". ParentThread ["
+                                   + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                                   + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]");
             latch.countDown();
         };
 
         assertTrue(true);
         try {
             Thread.sleep(1000);
-            System.out.println(
-                this.testName + ". ThreadId [" + Thread.currentThread().getId() + "]. ThreadName: " + Thread.currentThread().getName() + ". Process [" + ManagementFactory.getRuntimeMXBean().getName()
-                    + "] " + "Thread Group: " + Thread.currentThread().getThreadGroup().getName() + " Parent Group: " + Thread.currentThread().getThreadGroup().getParent().getName());
+            System.out.println(date.getTime() + " " + this.testName + ". ThreadId [" + Thread.currentThread().getId()
+                                   + "]. ThreadName: " + Thread.currentThread().getName()
+                                   + ". ParentThread ["
+                                   + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                                   + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]");
         }
         catch (InterruptedException e) {
         }
-        Thread t1 = new Thread(invokable, "one");
-        Thread t2 = new Thread(invokable, "two");
+        Thread t1 = new Thread(invokable, "  one");
+        Thread t2 = new Thread(invokable, "  two");
         Thread t3 = new Thread(invokable, "three");
         t1.start();
         t2.start();
         t3.start();
         latch.await();
-        System.out.println(TestProperties.storage.toString());
     }
 }

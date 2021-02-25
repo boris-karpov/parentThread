@@ -30,9 +30,11 @@ public class TreeOfThreads01 {
         Runnable invokable = () -> {
             /*thread body, any code can run here*/
             System.out.println(
-                date.getTime() + " " + getTestName() + " Runnable. ThreadId [" + Thread.currentThread().getId() + "]. ThreadName: " + Thread.currentThread().getName()
+                date.getTime() + " Runnable, Thread.start(). ThreadId [" + Thread.currentThread().getId() + "]. ThreadName: " + Thread.currentThread().getName()
                     + ". ParentThread [" + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]") ;
+            ThreadsByExecutorService test = new ThreadsByExecutorService();
+            test.shouldAnswerWithTrue();
             latch.countDown();
         };
 
@@ -45,13 +47,12 @@ public class TreeOfThreads01 {
         }
         catch (InterruptedException e) {
         }
-        Thread t1 = new Thread(invokable, "one");
-        Thread t2 = new Thread(invokable, "two");
-        Thread t3 = new Thread(invokable, "three");
+        Thread t1 = new Thread(invokable, "  tree.one");
+        Thread t2 = new Thread(invokable, "  tree.two");
+        Thread t3 = new Thread(invokable, "tree.three");
         t1.start();
         t2.start();
         t3.start();
         latch.await();
-        System.out.println(TestProperties.storage.toString());
     }
 }

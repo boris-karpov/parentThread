@@ -11,7 +11,7 @@ import org.junit.Test;
 /**
  * Unit test for simple App.
  */
-public class TestThreadsByExecutorService {
+public class ThreadsByExecutorService {
 
     private String testName = this.getClass().getName();
 
@@ -27,6 +27,8 @@ public class TestThreadsByExecutorService {
     public void shouldAnswerWithTrue() {
         Date date = new Date();
         int testThreadsPoolSize = 3;
+        //Line to add
+        long parentThreadId = Thread.currentThread().getId();
         ExecutorService testThreads = Executors.newFixedThreadPool(testThreadsPoolSize);
 
         try {
@@ -43,6 +45,8 @@ public class TestThreadsByExecutorService {
         for (int i = 0; testThreadsPoolSize > i; i++) {
             testThreads.submit(() -> {
                 try {
+                    //Line to add
+                    TestProperties.storage.setProperty(String.valueOf(Thread.currentThread().getId()),String.valueOf(parentThreadId));
                     System.out.println(date.getTime() + " ExecutorService. ThreadId [" + Thread.currentThread().getId()
                                            + "]. ThreadName: " + Thread.currentThread().getName()
                                            + ". ParentThread ["
@@ -56,8 +60,5 @@ public class TestThreadsByExecutorService {
                 }
             });
         }
-
-        System.out.println(TestProperties.storage.toString());
-
     }
 }
