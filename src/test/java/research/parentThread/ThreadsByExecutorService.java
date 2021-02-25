@@ -32,10 +32,12 @@ public class ThreadsByExecutorService {
         ExecutorService testThreads = Executors.newFixedThreadPool(testThreadsPoolSize);
 
         try {
-            System.out.println(date.getTime() + " " + this.testName + ". ThreadId [" + Thread.currentThread().getId()
-                                   + "]. ThreadName: " + Thread.currentThread().getName()
+            System.out.println(date.getTime() + " " + this.testName + ".  ThreadName: " + Thread.currentThread().getName()
+                                   + ". ThreadId [" + Thread.currentThread().getId() + "]"
                                    + ". ParentThread ["
                                    + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                                   + ". PrimaryThreadId ["
+                                   + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                                    + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]");
             Thread.sleep(1000);
         }
@@ -47,10 +49,12 @@ public class ThreadsByExecutorService {
                 try {
                     //Line to add
                     TestProperties.storage.setProperty(String.valueOf(Thread.currentThread().getId()),String.valueOf(parentThreadId));
-                    System.out.println(date.getTime() + " ExecutorService. ThreadId [" + Thread.currentThread().getId()
-                                           + "]. ThreadName: " + Thread.currentThread().getName()
+                    System.out.println(date.getTime() + " ExecutorService.  ThreadName: " + Thread.currentThread().getName()
+                                           + ". ThreadId [" + Thread.currentThread().getId() + "]"
                                            + ". ParentThread ["
                                            + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                                           + ". PrimaryThreadId ["
+                                           + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                                            + ". Process [" + ManagementFactory.getRuntimeMXBean()
                         .getName() + "] ");
                     Thread.sleep(1000);

@@ -30,8 +30,11 @@ public class TreeOfThreads01 {
         Runnable invokable = () -> {
             /*thread body, any code can run here*/
             System.out.println(
-                date.getTime() + " Runnable, Thread.start(). ThreadId [" + Thread.currentThread().getId() + "]. ThreadName: " + Thread.currentThread().getName()
+                date.getTime() + " Runnable, Thread.start().  ThreadName: " + Thread.currentThread().getName()
+                    + ". ThreadId [" + Thread.currentThread().getId() + "]"
                     + ". ParentThread [" + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                    + ". PrimaryThreadId ["
+                    + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]") ;
             ThreadsByExecutorService test = new ThreadsByExecutorService();
             test.shouldAnswerWithTrue();
@@ -42,8 +45,12 @@ public class TreeOfThreads01 {
         try {
             Thread.sleep(1000);
             System.out.println(
-                this.testName + ". ThreadId [" + Thread.currentThread().getId() + "]. ThreadName: " + Thread.currentThread().getName() + ". Process [" + ManagementFactory.getRuntimeMXBean().getName()
-                    + "] " + "Thread Group: " + Thread.currentThread().getThreadGroup().getName() + " Parent Group: " + Thread.currentThread().getThreadGroup().getParent().getName());
+                this.testName + ".  ThreadName: " + Thread.currentThread().getName()
+                    + ". ThreadId [" + Thread.currentThread().getId() + "]"
+                    + ". PrimaryThreadId ["
+                    + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
+                    + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]"
+                    + " Thread Group: " + Thread.currentThread().getThreadGroup().getName() + " Parent Group: " + Thread.currentThread().getThreadGroup().getParent().getName());
         }
         catch (InterruptedException e) {
         }

@@ -29,10 +29,12 @@ public class ThreadsByThreadStart {
     public void shouldAnswerWithTrue() throws InterruptedException {
         Runnable invokable = () -> {
             /*thread body, any code can run here*/
-            System.out.println(date.getTime() + " Runnable, Thread.start(). ThreadId [" + Thread.currentThread().getId()
-                                   + "]. ThreadName: " + Thread.currentThread().getName()
+            System.out.println(date.getTime() + " Runnable, Thread.start(). ThreadName: " + Thread.currentThread().getName()
+                                   + ". ThreadId [" + Thread.currentThread().getId() + "]"
                                    + ". ParentThread ["
                                    + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                                   + ". PrimaryThreadId ["
+                                   + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                                    + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]");
             latch.countDown();
         };
@@ -40,10 +42,12 @@ public class ThreadsByThreadStart {
         assertTrue(true);
         try {
             Thread.sleep(1000);
-            System.out.println(date.getTime() + " " + this.testName + ". ThreadId [" + Thread.currentThread().getId()
-                                   + "]. ThreadName: " + Thread.currentThread().getName()
-                                   + ". ParentThread ["
+            System.out.println(date.getTime() + " " + this.testName + ".  ThreadName: " + Thread.currentThread().getName()
+                                   + ". ThreadId [" + Thread.currentThread().getId() + "]"
+                                   + ". ParentThreadId ["
                                    + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                                   + ". PrimaryThreadId ["
+                                   + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                                    + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]");
         }
         catch (InterruptedException e) {
