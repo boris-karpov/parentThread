@@ -1,4 +1,3 @@
-
 import java.util.concurrent.ExecutorService;
 import research.parentThread.TestProperties;
 
@@ -12,7 +11,6 @@ public aspect getParentThread {
     }
 pointcut threadPooling(ExecutorService s, Runnable r): call(* submit(..)) && target(s) && args(r);
     Object around(ExecutorService s, Runnable r): threadPooling(s,r) {
-        long parentThreadId = Thread.currentThread().getId();
         return proceed(s,r);
     }
 

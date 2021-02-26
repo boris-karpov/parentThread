@@ -1,15 +1,15 @@
 package research.parentThread.testng.tests;
 
 import org.junit.Test;
-import research.parentThread.TreeOfThreads01;
+import research.parentThread.ThreadsByThreadStart;
 
-public class Test01 {
+public class TestThreadStart {
 
     String testName = this.getClass().getName();
     @Test
     public void runTest() throws InterruptedException {
-        TreeOfThreads01 test = new TreeOfThreads01();
+        ThreadsByThreadStart test = new ThreadsByThreadStart();
         test.setTestName(testName);
-        test.runTest();
+        test.shouldAnswerWithTrue();
     }
 }

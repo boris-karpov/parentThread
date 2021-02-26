@@ -21,10 +21,6 @@ public class ThreadsByThreadStart {
     CountDownLatch latch = new CountDownLatch(3);
     Date date = new Date();
 
-    public String getTestName() {
-        return this.testName;
-    }
-
     @Test
     public void shouldAnswerWithTrue() throws InterruptedException {
         Runnable invokable = () -> {

@@ -15,24 +15,30 @@ public class ThreadsByExecutorService {
 
     private String testName = this.getClass().getName();
 
+    public ThreadsByExecutorService() {
+        testThreadsPoolSize = 3;
+    }
+
     public void setTestName(String testName) {
         this.testName = testName;
     }
 
-    public String getTestName() {
-        return this.testName;
-    }
+    private final int testThreadsPoolSize;
+
+
 
     @Test
     public void shouldAnswerWithTrue() {
         Date date = new Date();
-        int testThreadsPoolSize = 3;
+
         //Line to add
         long parentThreadId = Thread.currentThread().getId();
         ExecutorService testThreads = Executors.newFixedThreadPool(testThreadsPoolSize);
 
         try {
-            System.out.println(date.getTime() + " " + this.testName + ".  ThreadName: " + Thread.currentThread().getName()
+            System.out.println(//date.getTime() + " " +
+                               this.testName.substring(this.testName.length() - 38)
+                                   + ".  ThreadName: " + Thread.currentThread().getName()
                                    + ". ThreadId [" + Thread.currentThread().getId() + "]"
                                    + ". ParentThread ["
                                    + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
@@ -49,7 +55,7 @@ public class ThreadsByExecutorService {
                 try {
                     //Line to add
                     TestProperties.storage.setProperty(String.valueOf(Thread.currentThread().getId()),String.valueOf(parentThreadId));
-                    System.out.println(date.getTime() + " ExecutorService.  ThreadName: " + Thread.currentThread().getName()
+                    System.out.println(date.getTime() + " ExecutorService.submit().  ThreadName: " + Thread.currentThread().getName()
                                            + ". ThreadId [" + Thread.currentThread().getId() + "]"
                                            + ". ParentThread ["
                                            + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
@@ -60,7 +66,6 @@ public class ThreadsByExecutorService {
                     Thread.sleep(1000);
                 }
                 catch (InterruptedException e) {
-                    System.out.println(date.getTime() + " ExecutorService. Exception");
                 }
             });
         }

@@ -3,12 +3,12 @@ package research.parentThread.testng.tests;
 import org.junit.Test;
 import research.parentThread.ThreadsByExecutorService;
 
-public class Test03 {
+public class TestExecutorService {
 
     String testName = this.getClass().getName();
 
     @Test
-    public void main() throws InterruptedException {
+    public void runTest() {
         ThreadsByExecutorService test = new ThreadsByExecutorService();
         test.setTestName(testName);
         test.shouldAnswerWithTrue();

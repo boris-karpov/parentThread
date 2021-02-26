@@ -7,10 +7,7 @@ import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import org.junit.Test;
 
-/**
- * Unit test for simple App.
- */
-public class TreeOfThreads01 {
+public class TreeOfThreads02 {
 
     private String testName = this.getClass().getName();
 
@@ -32,8 +29,9 @@ public class TreeOfThreads01 {
                     + ". PrimaryThreadId ["
                     + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]") ;
-            ThreadsByExecutorService test = new ThreadsByExecutorService();
-            test.shouldAnswerWithTrue();
+            TreeOfThreads01 test = new TreeOfThreads01();
+            try{test.runTest();}
+            catch (InterruptedException e) {}
             latch.countDown();
         };
 
@@ -43,7 +41,6 @@ public class TreeOfThreads01 {
             System.out.println(
                 this.testName + ".  ThreadName: " + Thread.currentThread().getName()
                     + ". ThreadId [" + Thread.currentThread().getId() + "]"
-                    + ". ParentThread [" + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". PrimaryThreadId ["
                     + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]"
@@ -51,12 +48,13 @@ public class TreeOfThreads01 {
         }
         catch (InterruptedException e) {
         }
-        Thread t1 = new Thread(invokable, "  tree01.one");
-        Thread t2 = new Thread(invokable, "  tree01.two");
-        Thread t3 = new Thread(invokable, "tree01.three");
+        Thread t1 = new Thread(invokable, "  tree02.one");
+        Thread t2 = new Thread(invokable, "  tree02.two");
+        Thread t3 = new Thread(invokable, "tree02.three");
         t1.start();
         t2.start();
         t3.start();
         latch.await();
     }
+
 }
