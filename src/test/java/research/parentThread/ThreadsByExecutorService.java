@@ -32,10 +32,11 @@ public class ThreadsByExecutorService {
         Date date = new Date();
 
         //Line to add
-        long parentThreadId = Thread.currentThread().getId();
+//        long parentThreadId = Thread.currentThread().getId();
         ExecutorService testThreads = Executors.newFixedThreadPool(testThreadsPoolSize);
 
         try {
+/*
             System.out.println(//date.getTime() + " " +
                                this.testName.substring(this.testName.length() - 38)
                                    + ".  ThreadName: " + Thread.currentThread().getName()
@@ -45,6 +46,7 @@ public class ThreadsByExecutorService {
                                    + ". PrimaryThreadId ["
                                    + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                                    + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]");
+*/
             Thread.sleep(1000);
         }
         catch (InterruptedException e) {
@@ -54,6 +56,7 @@ public class ThreadsByExecutorService {
             testThreads.submit(() -> {
                 try {
                     //Line to add
+/*
                     TestProperties.storage.setProperty(String.valueOf(Thread.currentThread().getId()),String.valueOf(parentThreadId));
                     System.out.println(date.getTime() + " ExecutorService.submit().  ThreadName: " + Thread.currentThread().getName()
                                            + ". ThreadId [" + Thread.currentThread().getId() + "]"
@@ -63,6 +66,7 @@ public class ThreadsByExecutorService {
                                            + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                                            + ". Process [" + ManagementFactory.getRuntimeMXBean()
                         .getName() + "] ");
+*/
                     Thread.sleep(1000);
                 }
                 catch (InterruptedException e) {

@@ -17,6 +17,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <aspectj.version>1.9.5</aspectj.version>
+    <jvm.options>-javaagent:"/home/ALLIEDTESTING/bkarpov/IdeaProjects/ThreadTestMavenProject/agent/ThreadTransformAgent/target/agent.jar"</jvm.options>
   </properties>
 
   <dependencies>
@@ -31,13 +32,11 @@
         <artifactId>aspectjrt</artifactId>
         <version>1.8.13</version>
     </dependency>
-<!--
     <dependency>
-        <groupId>org.aspectj</groupId>
-        <artifactId>aspectjweaver</artifactId>
-        <version>1.8.9</version>
+      <groupId>agents</groupId>
+      <artifactId>ThreadTransformAgent</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
--->
 <!--
     <dependency>
       <groupId>org.testng</groupId>
@@ -71,6 +70,7 @@
           <configuration>
             <parallel>methods</parallel>
             <threadCount>10</threadCount>
+            <argLine>${jvm.options}</argLine>
 <!--
             <suiteXmlFiles>
               <suiteXmlFile>testng.xml</suiteXmlFile>
@@ -101,31 +101,31 @@
         </plugin>
       </plugins>
     </pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>aspectj-maven-plugin</artifactId>
-          <version>1.11</version>
-          <configuration>
-            <complianceLevel>1.8</complianceLevel>
-            <source>1.8</source>
-            <target>1.8</target>
-            <showWeaveInfo>true</showWeaveInfo>
-            <verbose>true</verbose>
-            <Xlint>ignore</Xlint>
-            <encoding>UTF-8 </encoding>
-          </configuration>
-          <executions>
-            <execution>
-              <goals>
-                <!-- use this goal to weave all your main classes -->
-                <goal>compile</goal>
-                <!-- use this goal to weave all your test classes -->
-                <goal>test-compile</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>aspectj-maven-plugin</artifactId>
+        <version>1.11</version>
+        <configuration>
+          <complianceLevel>1.8</complianceLevel>
+          <source>1.8</source>
+          <target>1.8</target>
+          <showWeaveInfo>true</showWeaveInfo>
+          <verbose>true</verbose>
+          <Xlint>ignore</Xlint>
+          <encoding>UTF-8 </encoding>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <!-- use this goal to weave all your main classes -->
+              <goal>compile</goal>
+              <!-- use this goal to weave all your test classes -->
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>
