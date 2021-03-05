@@ -25,15 +25,14 @@ public class TreeOfThreads01 {
     public void runTest() throws InterruptedException {
         Runnable invokable = () -> {
             /*thread body, any code can run here*/
-/*
             System.out.println(
                 date.getTime() + " Runnable, Thread.start().  ThreadName: " + Thread.currentThread().getName()
                     + ". ThreadId [" + Thread.currentThread().getId() + "]"
-                    + ". ParentThread [" + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                    + ". ParentThread ["
+                    + TestProperties.getParentThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". PrimaryThreadId ["
                     + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]") ;
-*/
             ThreadsByExecutorService test = new ThreadsByExecutorService();
             test.shouldAnswerWithTrue();
             latch.countDown();
@@ -45,7 +44,8 @@ public class TreeOfThreads01 {
             System.out.println(
                 this.testName + ".  ThreadName: " + Thread.currentThread().getName()
                     + ". ThreadId [" + Thread.currentThread().getId() + "]"
-                    + ". ParentThread [" + TestProperties.storage.getProperty(String.valueOf(Thread.currentThread().getId())) + "]"
+                    + ". ParentThread ["
+                    + TestProperties.getParentThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". PrimaryThreadId ["
                     + TestProperties.getPrimaryThreadId(String.valueOf(Thread.currentThread().getId())) + "]"
                     + ". Process [" + ManagementFactory.getRuntimeMXBean().getName() + "]"
